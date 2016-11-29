@@ -8,13 +8,11 @@
   <% end %>
 
   <% if !all_warnings_are_hidden %>
-    <br /><br /><%= Spree.t(:warning) %>
-    <ul id="product-labeling">
+    <div id="product-labeling">
+      <strong><%= Spree.t(:warning) %></strong>
       <% @product.labeling.each_line do |line| %>
-        <% if line.first != '{' %>
-          <li><%= line.chomp %></li>
-        <% end %>
+        <%= line.chomp unless line.first == '{'  %>
       <% end %>
-    </ul>
+    </div>
   <% end %>
 <% end %>
