@@ -1,0 +1,20 @@
+<% unless @product.labeling.blank? %>
+  <% all_warnings_are_hidden = true %>
+  <% @product.labeling.each_line do |line| %>
+    <% if line.first != '{' %>
+      <% all_warnings_are_hidden = false %>
+      <% break %>
+    <% end %>
+  <% end %>
+
+  <% if !all_warnings_are_hidden %>
+    <br /><br /><%= Spree.t(:warning) %>
+    <ul id="product-labeling">
+      <% @product.labeling.each_line do |line| %>
+        <% if line.first != '{' %>
+          <li><%= line.chomp %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>
