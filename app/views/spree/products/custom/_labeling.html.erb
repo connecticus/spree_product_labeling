@@ -1,18 +1,22 @@
-<% unless @product.labeling.blank? %>
-  <% all_warnings_are_hidden = true %>
-  <% @product.labeling.each_line do |line| %>
-    <% if line.first != '{' %>
-      <% all_warnings_are_hidden = false %>
-      <% break %>
-    <% end %>
-  <% end %>
-
-  <% if !all_warnings_are_hidden %>
-    <div id="product-labeling">
-      <strong><%= Spree.t(:warning) %></strong>
+<div id="labels" data-hook="labels" class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <% unless @product.labeling.blank? %>
+      <% all_warnings_are_hidden = true %>
       <% @product.labeling.each_line do |line| %>
-        <%= line.chomp unless line.first == '{'  %>
+        <% if line.first != '{' %>
+          <% all_warnings_are_hidden = false %>
+          <% break %>
+        <% end %>
       <% end %>
-    </div>
-  <% end %>
-<% end %>
+
+      <% if !all_warnings_are_hidden %>
+        <div id="product-labeling">
+          <strong><%= Spree.t(:warning) %></strong>
+          <% @product.labeling.each_line do |line| %>
+            <%= line.chomp unless line.first == '{'  %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
